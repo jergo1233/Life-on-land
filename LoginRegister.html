@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="asset\1logo.png">
+  <title>LOG-IN / REGISTER</title>
+  <link rel="stylesheet" href="Style.css">
+ </head>
+ <body id="body">
+  <div class="logreg-container">
+
+        <!-- Login Form -->
+        <div id="loginForm" class="form">
+        <h2>Login</h2>
+        <input type="text" class="input" id="loginUsername" placeholder="Username" />
+        <input type="password"  class="input" id="loginPassword" placeholder="Password" />
+        <button id="loginBtn">Login</button><br />
+        <p id="toRegister" class="toggle">Don't have an account? Register</p>
+        </div>
+
+
+        <!-- Register Form -->
+        <div id="registerForm" class="form">
+        <h2>Register</h2>
+        <input type="text"  class="input" id="registerUsername" placeholder="Username" />
+        <input type="password"  class="input" id="registerPassword" placeholder="Password" />
+        <button id="registerBtn" >Register</button><br />
+        <p id="toLogin" class="toggle">Already have an account? Login</p>
+        </div>
+  </div>
+
+
+
+  <script>
+     document.getElementById("loginForm").style.display = "block";
+
+    // Toggle buttons
+      document.getElementById("toRegister").addEventListener('click', function() {
+      document.getElementById("loginForm").style.display = "none";
+      document.getElementById("registerForm").style.display = "block";
+    });
+
+      document.getElementById("toLogin").addEventListener('click', function() {
+      document.getElementById("registerForm").style.display = "none";
+      document.getElementById("loginForm").style.display = "block";
+    });
+
+
+    document.getElementById("registerBtn").addEventListener('click', function () {
+        let username = document.getElementById("registerUsername").value;
+        let password = document.getElementById("registerPassword").value;
+  
+        if (username && password) {
+          if (localStorage.getItem(username)) {
+            alert("Username already exists.");
+          } else {
+            const userData =  password;
+            localStorage.setItem(username, userData);
+            alert("Registered successfully! You can now login.");
+            document.getElementById("registerForm").style.display = "none";
+            document.getElementById("loginForm").style.display = "block";
+          }
+        } else {
+          alert("Please fill in all fields.");
+        }
+      });
+
+    //log-in
+    document.getElementById("loginBtn").addEventListener('click', function() {
+      let username = document.getElementById("loginUsername").value;
+      let password = document.getElementById("loginPassword").value;
+
+      let storedData = localStorage.getItem(username);
+
+      if (!storedData) {
+        alert("User not found. Please register.");
+      } else {
+         
+        if ( password === storedData) {
+          window.location.href = "Index.html";
+        } else {
+          alert("Incorrect password.");
+        }
+      }
+    });
+
+   
+  </script>
+  
+</body>
+
+</html>
